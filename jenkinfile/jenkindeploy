@@ -6,7 +6,7 @@ pipeline {
         IMAGE_NAME = 'yourapp'
         TAG = 'latest'
         AKS_RESOURCE_GROUP = 'aks'
-        AKS_CLUSTER_NAME = 'aks-pipe'
+        AKS_CLUSTER_NAME = 'aks'
         NAMESPACE = 'default'
       }
 }
