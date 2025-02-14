@@ -1,0 +1,22 @@
+pipeline {
+    agent Any
+      environment {
+        ACR_NAME = 'acr1410'
+        ACR_LOGIN_SERVER = 'acr1410.azurecr.io'
+        IMAGE_NAME = 'yourapp'
+        TAG = 'latest'
+        AKS_RESOURCE_GROUP = 'aks'
+        AKS_CLUSTER_NAME = 'aks-pipe'
+        NAMESPACE = 'default'
+      }
+}
+stages
+    stage{
+        ('Deploy to AKS') {
+            steps {
+                withCredentials([file(credentialsId: 'aks-kubeconfig', variable: 'KUBECONFIG')]) {
+                    sh 'kubectl set image deployment/$IMAGE_NAME $IMAGE_NAME=$ACR_LOGIN_SERVER/$IMAGE_NAME:$TAG -n $NAMESPACE'
+            }
+        }
+    }
+}
